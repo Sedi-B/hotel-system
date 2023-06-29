@@ -1,22 +1,37 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import register from "../assets/register-back.jpg";
-import logo from "../assets/logo.jpeg";
-import standard from "../assets/standard.jpg";
+import React  from "react";
+import { useNavigate } from "react-router-dom";
 import deluxe from "../assets/deluxe.jpg";
 import family from "../assets/family.jpg";
+import logo from "../assets/logo.jpeg";
+import standard from "../assets/standard.jpg";
+
+import {useState} from 'react'
+
+
 const Offers = () => {
+  const [checkInDate, setCheckInDate] = useState("");
+  const [checkOutDate, setCheckOutDate] = useState("");
+  
+  const navigate = useNavigate();
+
+  /* check availability function*/
+
+  const handleCheckAvailability = (e) => {
+    e.preventDefault();
+    navigate("/AvailableRooms");
+  };
+
   return (
     <>
-      <section className="grid grid-cols-2 divide-x h-screen   ">
-        <div class="flex justify-center items-center bg-[linear-gradient(to_left_bottom,rgba(0,135,253,2),rgba(0,135,253,0)),url('./assets/register-back.jpg')] bg-cover">
+      <section className="grid grid-cols-2 divide-x h-screen  md:px-0 ">
+        <div class="flex justify-center items-center bg-[linear-gradient(to_left_top,rgba(0,135,253,0.5),rgba(0,135,253,0)),url('./assets/register-back.jpg')] bg-cover">
           <header className="left-0 fixed  top-0 ">
             <div className=" flex items-center ">
               <div>
                 <img className=" h-5 w-auto sm:h-10" src={logo} alt="logo" />
               </div>
               <div> @SEDIHOMES</div>
-              <a
+              {/* <a
                 href="#"
                 className="p-3 px-6 pt-2 text-white  bg-blue rounded-full baseline  hover:bg-blend-color-burn  py-2 my-3 mx-3 "
               >
@@ -30,13 +45,15 @@ const Offers = () => {
               >
                 {" "}
                 Go back
-              </Link>
+              </Link> */}
             </div>
           </header>
 
           <div className="flex flex-col items-center justify-center">
-            <form className="max-w-md bg-transparent shadow-md rounded-full px-8 pt-6 pb-8 mb-4">
-              <h1 className="flex justify-center  font-extralight text-white">BOOK YOUR ROOM WITH US!</h1>
+            <form className=" flex justify-center flex-col h-[500px] items-center">
+              <h1 className="flex justify-center font-bold from-neutral-50 text-white">
+                BOOK YOUR ROOM WITH US!
+              </h1>
               <div className="mb-4">
                 <label className="block text-gray-700 text-sm  mb-2">
                   <i className="fas fa-calendar-alt mr-2"></i>
@@ -44,8 +61,11 @@ const Offers = () => {
                 </label>
                 <input
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  type="text"
+                  type="date"
+                  value={checkInDate}
+                  onChange={(e) => setCheckInDate(e.target.value)}
                   placeholder="Check-in date"
+                  required
                 />
               </div>
               <div className="mb-4">
@@ -54,25 +74,19 @@ const Offers = () => {
                 </label>
                 <input
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  type="text"
+                  type="date"
+                  value={checkOutDate}
+                  onChange={(e) => setCheckOutDate(e.target.value)}
                   placeholder="Check-out date"
+                  required
                 />
               </div>
-              <div className="mb-4">
-                <label className="block text-gray-700 text-sm mb-2">
-                  <i className="fas fa-calendar-alt mr-2"></i>
-                  Number of guests:
-                </label>
-                <input
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  type="text"
-                  placeholder="No.guest"
-                />
-              </div>
+             
               <div className="flex items-center justify-center">
                 <button
+                  onClick={handleCheckAvailability}
                   className="bg-white hover:bg-blue-700 text-blue  font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                  type="button"
+                  type="submit  "
                 >
                   Check Availability
                 </button>
@@ -81,12 +95,29 @@ const Offers = () => {
           </div>
         </div>
 
-        <div className="h-screen space-y-4 font-bold">
+        <div className="space-y-4 h-screen  bg-cyan-100 flex flex-col items-center">
           What we have @SEDIHOMES
-          <div className="font-semibold">Standard room <img className=" w-80" src={standard} alt="standard pic" /> </div>
-          <div className=" "> Deluxe room <img className="  w-80" src={deluxe} alt="deluxe pic" /></div>
-          <div className=" ">Family Sharing <img className="  w-80" src={family} alt="family pic" /> </div>
-          <div > AT SEDIHHOMES we give you the best accommodation services worldwide, we have so </div>
+          <div className="font-semibold ">
+            Standard
+            <img className=" w-80" src={standard} alt="standard pic" />{" "}
+          </div>
+          <div className=" font-semibold ">
+            {" "}
+            Deluxe <img className="  w-80" src={deluxe} alt="deluxe pic" />
+          </div>
+          <div className="font-semibold  ">
+            Family Sharing{" "}
+            <img className="  w-80" src={family} alt="family pic" />{" "}
+          </div>
+          <div className=" font-light flex  items-center ">
+            {" "}
+            @SEDIHOMES we give you the best accommodation services worldwide, we
+            have a beautiful city-view and comfortable home feeling rooms with
+            special facilities according to the chosen kind
+          </div>
+          <footer className="flex justify-center items-end bottom-">
+            @sedihomes.2023
+          </footer>
         </div>
       </section>
     </>

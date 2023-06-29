@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React  from "react";
 import { Link } from "react-router-dom";
 import logeron from "../assets/logeron.jpg";
 import logo from "../assets/logo.jpeg";
+import {useState} from 'react'
+
 
 const Login = () => {
 const handleClick =()=>{
@@ -20,7 +22,7 @@ const [password, setPassword] = useState("");
     <>
 
 
-      <section className="grid grid-cols-2 divide-x h-screen ">
+      <section className="grid grid-cols-2 divide-x h-screen md:px-0 ">
         
         <div className="flex flex-col items-center justify-center bg-">
         <header className="left-0 fixed  top-0">
