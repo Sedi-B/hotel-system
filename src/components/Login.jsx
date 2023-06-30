@@ -67,6 +67,12 @@ const [password, setPassword] = useState("");
             <a className="inline-block align-baseline text-sm text-black-400 hover:text-black-800">
               Forgot your password?
             </a>
+            <div className="flex justify-center text-center"> 
+              
+              or continue  with 
+              
+
+            </div>
             <br />
             Do not have an account?
             <Link to={"/Register"}> Register</Link>

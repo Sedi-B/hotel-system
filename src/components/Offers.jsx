@@ -1,17 +1,16 @@
-import React  from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import deluxe from "../assets/deluxe.jpg";
 import family from "../assets/family.jpg";
 import logo from "../assets/logo.jpeg";
 import standard from "../assets/standard.jpg";
 
-import {useState} from 'react'
-
+import { useState } from "react";
 
 const Offers = () => {
   const [checkInDate, setCheckInDate] = useState("");
   const [checkOutDate, setCheckOutDate] = useState("");
-  
+
   const navigate = useNavigate();
 
   /* check availability function*/
@@ -24,7 +23,7 @@ const Offers = () => {
   return (
     <>
       <section className="grid grid-cols-2 divide-x h-screen  md:px-0 ">
-        <div class="flex justify-center items-center bg-[linear-gradient(to_left_top,rgba(0,135,253,0.5),rgba(0,135,253,0)),url('./assets/register-back.jpg')] bg-cover">
+        <div className="flex justify-center items-center bg-[linear-gradient(to_left_top,rgba(0,135,253,0.5),rgba(0,135,253,0)),url('./assets/register-back.jpg')] bg-cover">
           <header className="left-0 fixed  top-0 ">
             <div className=" flex items-center ">
               <div>
@@ -75,13 +74,13 @@ const Offers = () => {
                 <input
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   type="date"
+                  placeholder="Check-out date"
                   value={checkOutDate}
                   onChange={(e) => setCheckOutDate(e.target.value)}
-                  placeholder="Check-out date"
                   required
                 />
               </div>
-             
+
               <div className="flex items-center justify-center">
                 <button
                   onClick={handleCheckAvailability}
