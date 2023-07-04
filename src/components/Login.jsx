@@ -1,22 +1,29 @@
 import React  from "react";
-import { Link } from "react-router-dom";
+import { Link , useNavigate} from "react-router-dom";
 import logeron from "../assets/logeron.jpg";
 import logo from "../assets/logo.jpeg";
 import {useState} from 'react'
+import { signInWithEmailAndPassword} from "firebase/auth";
+import { auth } from "../confg/firebase";
 
 
 const Login = () => {
-const handleClick =()=>{
-  e.preventDefault();
-  if ( password == "") {
-    alert("Please fill all fields");
-  } else {
-  }
-};
 
-const [email, setEmail] = useState("");
+  const naviagte = useNavigate()
+  const [email, setEmail] = useState("");
 const [password, setPassword] = useState("");
 
+  const signIn = (e) => {
+    e.preventDefault();
+    signInWithEmailAndPassword(auth, email, password)
+      .then(() => {
+        alert("You are logged in");
+        naviagte("/About")
+      })
+      .catch((error) => {
+        console.log("Error:", error);
+      });
+  };
 
   return (
     <>
@@ -49,7 +56,7 @@ const [password, setPassword] = useState("");
             <label> Password</label>
             <br />
             <input
-              type="text"
+              type="password"
               onChange={(e)=>setPassword(e.target.value)}
               placeholder="Password"
               className=" p-2 w-64 bg-black-500 border border-black rounded-lg text-white-900 "
@@ -58,7 +65,7 @@ const [password, setPassword] = useState("");
             <br />
             <button
               type="submit"
-              onClick={(e)=>handleClick(e)}
+              onClick={signIn}
               className="shadow bg-blue-500 hover:bg-blue-400 focus:shadow-outline-none text-white bg-blue py-2 px-2 rounded  my-3 w-64
             "
             >
@@ -67,11 +74,11 @@ const [password, setPassword] = useState("");
             <a className="inline-block align-baseline text-sm text-black-400 hover:text-black-800">
               Forgot your password?
             </a>
-            <div className="flex justify-center text-center"> 
+            <div className="flex justify-center text-center "> 
               
-              or continue  with 
-              
-
+              or continue  with <br/>
+             
+             
             </div>
             <br />
             Do not have an account?
