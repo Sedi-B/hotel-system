@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword,signOut } from "firebase/auth";
 import { auth } from "../../confg/firebase";
+import logo from "../../assets/logo.jpeg"
+import { sendPasswordResetEmail } from "firebase/auth";
+
 
 const Adminlogin = () => {
   const [email, setEmail] = useState("");
@@ -20,9 +23,29 @@ const Adminlogin = () => {
         alert(`Failed to login ${error}`);
       });
   };
+{/* forgot password*/}
+const forgotPassword= (e) =>{
+e.preventDefault();
+sendPasswordResetEmail(auth,email).then(()=>{
+  alert('Check your mail for reset link')  //success message if the user is registered with that
+}).catch((error) =>
+ console.log("Could'nt reset:", error));
+}
 
   return (
     <div className="flex items-center justify-center h-screen bg-slate-400">
+{/* Header Section */}
+<header className="top-0 fixed left-0 text-white">
+        <div className="flex items-center">
+          <img src={logo} alt="logo" className=" h-5 w-auto sm:h-10 mr-4" />
+
+          <div>@SEDIHOMES</div>
+        </div>
+        <div className="flex items-center">
+      
+        </div>
+      </header>
+
       <form className="w-64 ">
         <h2 className="text-xl font-extra mb-4">Administration Login</h2>
         <div className="mb-4">
@@ -64,6 +87,13 @@ const Adminlogin = () => {
           Login
         </button>{" "}
         <br />
+        <button
+          className=" text-white py-0 px-0"
+          type="submit"
+          onClick={forgotPassword}
+        >
+          Forgot password
+        </button> <br/>
         Don't have an account?
         <Link className="underline  " to={"/Adminregister"}>
           {" "}

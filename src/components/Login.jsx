@@ -5,7 +5,7 @@ import logo from "../assets/logo.jpeg";
 import {useState} from 'react'
 import { signInWithEmailAndPassword} from "firebase/auth";
 import { auth } from "../confg/firebase";
-
+import { sendPasswordResetEmail } from "firebase/auth";
 
 const Login = () => {
 
@@ -24,7 +24,14 @@ const [password, setPassword] = useState("");
         console.log("Error:", error);
       });
   };
-
+{/*Pasword reset*/}
+const forgotPassword= (e) =>{
+  e.preventDefault();
+  sendPasswordResetEmail(auth,email).then(()=>{
+    alert('Check your mail for reset link')  //success message if the user is registered with that
+  }).catch((error) =>
+   console.log("Could'nt reset:", error));
+  }
   return (
     <>
 
@@ -71,14 +78,13 @@ const [password, setPassword] = useState("");
             >
               Login
             </button> <br/>
-            <a className="inline-block align-baseline text-sm text-black-400 hover:text-black-800">
+            <button className="inline-block align-baseline text-sm text-black-400 hover:text-black-800" onClick={forgotPassword}>
               Forgot your password?
-            </a>
+            </button>
             <div className="flex justify-center text-center "> 
               
               or continue  with <br/>
-             
-             
+   
             </div>
             <br />
             Do not have an account?

@@ -2,6 +2,8 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { auth } from "../../confg/firebase";
+import logo from "../../assets/logo.jpeg";
+
 
 const AdminRegister = () => {
   const [email, setEmail] = useState("");
@@ -25,7 +27,23 @@ const AdminRegister = () => {
   };
 
   return (
+
+
     <div className="flex justify-center items-center h-screen bg-[gray]">
+
+    {/* Header Section */}
+    <header className="top-0 fixed left-0 text-white">
+        <div className="flex items-center">
+          <img src={logo} alt="logo" className=" h-5 w-auto sm:h-10 mr-4" />
+
+          <div>@SEDIHOMES</div>
+        </div>
+        <div className="flex items-center">
+      
+        </div>
+      </header>
+
+
       <form className="max-w-md mx-auto ">
         <h1 className="text-4xl font-extralight py-3  ">Register an Account</h1>
 

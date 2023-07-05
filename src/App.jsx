@@ -12,6 +12,8 @@ import Register from "./components/Register";
 import Login from "./components/login";
 import AddRoom from "./components/Admin/AddRoom";
 import AdminRegister from "./components/Admin/Adminregister";
+import Explore from "./components/Explore";
+
 
 const App = () => {
   return (
@@ -27,7 +29,8 @@ const App = () => {
         <Route path="/Adminlogin" element={<Adminlogin />} />
         <Route path= "/AddRoom" element={<AddRoom />}/>
         <Route path="/Adminregister" element={<AdminRegister/>} />
-
+        <Route path="/Explore" element={<Explore/>} />
+     
       </Routes>
     </BrowserRouter>
   );

@@ -1,16 +1,16 @@
 import { BellIcon, SearchIcon } from "@heroicons/react/outline";
 import React from "react";
 import { Link} from "react-router-dom";
-
+import logo from "../../assets/logo.jpeg"
 
 
 const AdminGuest = () => {
   return (
     <div>
       {/* Header Section */}
-      <header className="flex items-center justify-between p-4 bg-[blue] text-white">
+      <header className="flex items-center justify-between p-4 bg-[#7b7b7e] text-white">
         <div className="flex items-center">
-          <img src="/assets/logo.jpeg" alt="logo" className="mr-4" />
+          <img src={logo} alt="logo" className=" h-5 w-auto sm:h-10 mr-4" />
           <div>@SEDIHOMES</div>
         </div>
         <div className="flex items-center">

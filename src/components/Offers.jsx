@@ -10,7 +10,7 @@ import { useState } from "react";
 const Offers = () => {
   const [checkInDate, setCheckInDate] = useState("");
   const [checkOutDate, setCheckOutDate] = useState("");
-
+  const [numberOfGuests, setNumberOfGuests] = useState();
   const navigate = useNavigate();
 
   /* check availability function*/
@@ -54,12 +54,12 @@ const Offers = () => {
                 BOOK YOUR ROOM WITH US!
               </h1>
               <div className="mb-4">
-                <label className="block text-gray-700 text-sm  mb-2">
+                <label className="block text-[black] text-sm  mb-2">
                   <i className="fas fa-calendar-alt mr-2"></i>
                   Check-in:
                 </label>
                 <input
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="shadow appearance-none border rounded w-full py-2 px-12 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   type="date"
                   value={checkInDate}
                   onChange={(e) => setCheckInDate(e.target.value)}
@@ -67,12 +67,13 @@ const Offers = () => {
                   required
                 />
               </div>
+
               <div className="mb-4">
-                <label className="block text-gray-700 text-sm  mb-2">
+                <label className="block text-[black] text-sm  mb-2">
                   Check-out:
                 </label>
                 <input
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="shadow appearance-none border rounded w-full py-2 px-12 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   type="date"
                   placeholder="Check-out date"
                   value={checkOutDate}
@@ -80,6 +81,23 @@ const Offers = () => {
                   required
                 />
               </div>
+
+              {/* //.. */}
+              <div className="mb-4">
+                <label className="block text-[black] text-sm  mb-4">
+                
+                  Number of guest:
+                </label>
+                <input
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  type="number"
+                  value={numberOfGuests}
+                  onChange={(e) => setNumberOfGuests(e.target.value)}
+                  placeholder="Number of guests"
+                  required
+                />
+              </div>
+              {/* //... */}
 
               <div className="flex items-center justify-center">
                 <button
@@ -112,7 +130,7 @@ const Offers = () => {
             {" "}
             @SEDIHOMES we give you the best accommodation services worldwide, we
             have a beautiful city-view and comfortable home feeling rooms with
-            special facilities according to the chosen kind
+            special facilities according to the chosen kind of room you have Picked.
           </div>
           <footer className="flex justify-center items-end bottom-">
             @sedihomes.2023

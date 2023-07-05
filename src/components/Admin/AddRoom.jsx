@@ -1,9 +1,52 @@
 import { BellIcon, SearchIcon } from "@heroicons/react/outline";
-import React from "react";
-import { Link} from "react-router-dom";
-import logo from  "../../assets/logo.jpeg";
+import { addDoc, collection } from "firebase/firestore";
+import { React, useState } from "react";
+import { Link } from "react-router-dom";
+import logo from "../../assets/logo.jpeg";
+import { database } from "../../confg/firebase";
 
 const AddRoom = () => {
+  const [roomNo, setroomNo] = useState(null);
+  const [image, setImage] = useState("");
+  const [description, setDescription] = useState("");
+  const [facilities, setFacilities] = useState("");
+  const [numberOfGuests, setNumberOfGuests] = useState(0);
+  const [amount, setAmount] = useState(0);
+
+  {
+    /*IMAGE FUNCTION */
+  }
+  const handleImageChange = (e) => {
+    e.preventDefault();
+    const file = e.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      setImage(reader.result);
+    };
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
+
+  //Saving info
+  const handleAddRoom = async (event) => {
+    event.preventDefault();
+alert("room added")
+    try {
+      await addDoc(collection(database, "rooms"), {
+        roomNo,
+        description,
+        facilities,
+        amount,
+        numberOfGuests,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div>
       {/* Header Section */}
@@ -19,7 +62,7 @@ const AddRoom = () => {
           <img
             src="/path/to/profile.png"
             alt="Profile"
-            className="w-8 h-8 rounded-full"
+            className="w-10 h-8 rounded-full"
           />
         </div>
       </header>
@@ -33,7 +76,10 @@ const AddRoom = () => {
           </button>
         </div>
         <div>
-          <Link className="border bg-slate-600 px-4 py-2 bg-blue-500 text-white rounded" to={"/Adminboard"}>
+          <Link
+            className="border bg-slate-600 px-4 py-2 bg-blue-500 text-white rounded"
+            to={"/Adminboard"}
+          >
             Reservations
           </Link>
           <Link
@@ -42,7 +88,10 @@ const AddRoom = () => {
           >
             Guest
           </Link>
-          <Link className="border bg-slate-600 px-4 py-2 bg-blue-500 text-white rounded ml-2" to={"/Adminboard"}>
+          <Link
+            className="border bg-slate-600 px-4 py-2 bg-blue-500 text-white rounded ml-2"
+            to={"/Adminboard"}
+          >
             {" "}
             Add Room
           </Link>
@@ -53,11 +102,80 @@ const AddRoom = () => {
       </div>
 
       {/* Main Section */}
-      <div className="p-4 bg-black h-screen">
+      <div className="p-4 h-screen  bg-gray-200">
         {/* Display information based on the button clicked */}
-        <h3 className="text-white">Rooms</h3>
+        <h3 className="text-Gray">My Rooms</h3>
+        {/*adding rooms*/}
 
+        <form className="flex">
+          <div className="w-1/2 px-4">
+            <label className="block mb-2 font-bold">Room No</label>
+            <input
+              type="number"
+              id="room number"
+              onChange={(e) => setroomNo(e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md"
+            />
+          </div>
+          <div className="w-1/2 px-4">
+            <label className="block mb-2 font-bold">Image</label>
+
+            <img className="w-24" src={image} />
+
+            <input
+              type="file"
+              id="image"
+              onChange={handleImageChange}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md"
+            />
+          </div>
+          <div className="w-1/2 px-4">
+            <label className="block mb-2 font-bold">Description</label>
+            <input
+              type="text"
+              id="description"
+              onChange={(e) => setDescription(e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md"
+            />
+          </div>
+          <div className="w-1/2 px-4">
+            <label className="block mb-2 font-bold">Facilities</label>
+            <input
+              type="text"
+              id="facilities"
+              onChange={(e) => setFacilities(e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md"
+            />
+          </div>
+          <div className="w-1/2 px-4">
+            <label className="block mb-2 font-bold">Guest</label>
+            <input
+              type="number"
+              id="guests"
+              onChange={(e) => setNumberOfGuests(e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md"
+            />
+          </div>
+          <div className="w-1/2 px-4">
+            <label className="block mb-2 font-bold">Price</label>
+            <input
+              type="money"
+              id="price"
+              onChange={(e) => setAmount(e.target.value)}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md"
+            />
+          </div>
         
+            <button
+              onClick={handleAddRoom}
+              className="px-3 py-2 bg-[gray] text-white rounded-md w-20 ml-5"
+            >
+              Save room
+            </button>
+          
+        </form>
+
+        {/*adding rooms*/}
       </div>
     </div>
   );
