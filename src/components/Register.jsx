@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import front from "../assets/Front.jpg";
 import logo from "../assets/logo.jpeg";
-import { auth } from "../confg/firebase";
+import { auth } from "../config/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const Register = () => {

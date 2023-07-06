@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signOut, getAuth } from "firebase/auth";
 import logo from "../../assets/logo.jpeg";
-import { auth } from "../../confg/firebase";
+import { auth } from "../../config/firebase";
 
 const Adminboard = () => {
   const Navigate = useNavigate();

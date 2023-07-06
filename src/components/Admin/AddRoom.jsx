@@ -1,9 +1,11 @@
 import { BellIcon, SearchIcon } from "@heroicons/react/outline";
 import { addDoc, collection } from "firebase/firestore";
+import { getStorage, ref, uploadBytes } from "firebase/storage";
 import { React, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.jpeg";
-import { database } from "../../confg/firebase";
+import { database, storage } from "../../config/firebase";
+
 
 const AddRoom = () => {
   const [roomNo, setroomNo] = useState(null);
@@ -12,6 +14,7 @@ const AddRoom = () => {
   const [facilities, setFacilities] = useState("");
   const [numberOfGuests, setNumberOfGuests] = useState(0);
   const [amount, setAmount] = useState(0);
+  const [file,setFile] = useState();
 
   {
     /*IMAGE FUNCTION */
@@ -19,6 +22,7 @@ const AddRoom = () => {
   const handleImageChange = (e) => {
     e.preventDefault();
     const file = e.target.files[0];
+    setFile(file)
     const reader = new FileReader();
 
     reader.onload = () => {
@@ -29,11 +33,19 @@ const AddRoom = () => {
       reader.readAsDataURL(file);
     }
   };
-
+  
   //Saving info
   const handleAddRoom = async (event) => {
     event.preventDefault();
-alert("room added")
+
+    const storageRef = ref(storage, file.name);
+    
+    // 'file' comes from the Blob or File API
+    uploadBytes(storageRef, file).then((snapshot) => {
+      console.log('Uploaded a blob or file!');
+    });
+
+    alert("room added");
     try {
       await addDoc(collection(database, "rooms"), {
         roomNo,
@@ -165,14 +177,13 @@ alert("room added")
               className="w-full px-4 py-2 border border-gray-300 rounded-md"
             />
           </div>
-        
-            <button
-              onClick={handleAddRoom}
-              className="px-3 py-2 bg-[gray] text-white rounded-md w-20 ml-5"
-            >
-              Save room
-            </button>
-          
+
+          <button
+            onClick={handleAddRoom}
+            className="px-3 py-2 bg-[gray] text-white rounded-md w-20 ml-5"
+          >
+            Save room
+          </button>
         </form>
 
         {/*adding rooms*/}

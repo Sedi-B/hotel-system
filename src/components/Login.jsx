@@ -4,7 +4,7 @@ import logeron from "../assets/logeron.jpg";
 import logo from "../assets/logo.jpeg";
 import {useState} from 'react'
 import { signInWithEmailAndPassword} from "firebase/auth";
-import { auth } from "../confg/firebase";
+import { auth } from "../config/firebase";
 import { sendPasswordResetEmail } from "firebase/auth";
 
 const Login = () => {

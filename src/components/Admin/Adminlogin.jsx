@@ -1,10 +1,11 @@
+import {
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { signInWithEmailAndPassword,signOut } from "firebase/auth";
-import { auth } from "../../confg/firebase";
-import logo from "../../assets/logo.jpeg"
-import { sendPasswordResetEmail } from "firebase/auth";
-
+import logo from "../../assets/logo.jpeg";
+import { auth } from "../../config/firebase";
 
 const Adminlogin = () => {
   const [email, setEmail] = useState("");
@@ -23,27 +24,28 @@ const Adminlogin = () => {
         alert(`Failed to login ${error}`);
       });
   };
-{/* forgot password*/}
-const forgotPassword= (e) =>{
-e.preventDefault();
-sendPasswordResetEmail(auth,email).then(()=>{
-  alert('Check your mail for reset link')  //success message if the user is registered with that
-}).catch((error) =>
- console.log("Could'nt reset:", error));
-}
+  {
+    /* forgot password*/
+  }
+  const forgotPassword = (e) => {
+    e.preventDefault();
+    sendPasswordResetEmail(auth, email)
+      .then(() => {
+        alert("Check your mail for reset link"); //success message if the user is registered with that
+      })
+      .catch((error) => console.log("Could'nt reset:", error));
+  };
 
   return (
     <div className="flex items-center justify-center h-screen bg-slate-400">
-{/* Header Section */}
-<header className="top-0 fixed left-0 text-white">
+      {/* Header Section */}
+      <header className="top-0 fixed left-0 text-white">
         <div className="flex items-center">
           <img src={logo} alt="logo" className=" h-5 w-auto sm:h-10 mr-4" />
 
           <div>@SEDIHOMES</div>
         </div>
-        <div className="flex items-center">
-      
-        </div>
+        <div className="flex items-center"></div>
       </header>
 
       <form className="w-64 ">
@@ -93,7 +95,8 @@ sendPasswordResetEmail(auth,email).then(()=>{
           onClick={forgotPassword}
         >
           Forgot password
-        </button> <br/>
+        </button>{" "}
+        <br />
         Don't have an account?
         <Link className="underline  " to={"/Adminregister"}>
           {" "}
