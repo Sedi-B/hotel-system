@@ -1,11 +1,12 @@
-import React from "react";
+import { LogoutIcon } from "@heroicons/react/outline";
+import { auth } from "../../config/firebase";
+import { signOut } from "firebase/auth";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import deluxe from "../assets/deluxe.jpg";
-import family from "../assets/family.jpg";
-import logo from "../assets/logo.jpeg";
-import standard from "../assets/standard.jpg";
-
-import { useState } from "react";
+import deluxe from "../../assets/deluxe.jpg";
+import family from "../../assets/family.jpg";
+import logo from "../../assets/logo.jpeg";
+import standard from "../../assets/standard.jpg";
 
 const Offers = () => {
   const [checkInDate, setCheckInDate] = useState("");
@@ -17,7 +18,16 @@ const Offers = () => {
 
   const handleCheckAvailability = (e) => {
     e.preventDefault();
-    navigate("/AvailableRooms");
+    navigate("/FetchData");
+  };
+  const logOut = (e) => {
+    e.preventDefault();
+    signOut(auth)
+      .then(() => {
+        alert("bye");
+        navigate("/Login");
+      })
+      .catch((error) => console.log("Error while signing out:", error));
   };
 
   return (
@@ -85,7 +95,6 @@ const Offers = () => {
               {/* //.. */}
               <div className="mb-4">
                 <label className="block text-[black] text-sm  mb-4">
-                
                   Number of guest:
                 </label>
                 <input
@@ -116,26 +125,35 @@ const Offers = () => {
           What we have @SEDIHOMES
           <div className="font-semibold ">
             Standard
-            <img className=" w-80" src={standard} alt="standard pic" />{" "}
+            <img
+              className=" w-80 rounded-2xl"
+              src={standard}
+              alt="standard pic"
+            />{" "}
           </div>
           <div className=" font-semibold ">
             {" "}
-            Deluxe <img className="  w-80" src={deluxe} alt="deluxe pic" />
+            Deluxe{" "}
+            <img className="  w-80 rounded-2xl" src={deluxe} alt="deluxe pic" />
           </div>
           <div className="font-semibold  ">
             Family Sharing{" "}
-            <img className="  w-80" src={family} alt="family pic" />{" "}
+            <img className="  w-80 rounded-2xl" src={family} alt="family pic" />{" "}
           </div>
           <div className=" font-light flex  items-center ">
             {" "}
             @SEDIHOMES we give you the best accommodation services worldwide, we
             have a beautiful city-view and comfortable home feeling rooms with
-            special facilities according to the chosen kind of room you have Picked.
+            special facilities according to the chosen kind of room you have
+            Picked.
           </div>
-          <footer className="flex justify-center items-end bottom-">
-            @sedihomes.2023
-          </footer>
+          <div className="mb-4">
+            <LogoutIcon className=" w-10" onClick={logOut}></LogoutIcon>
+          </div>
         </div>
+        <footer className="flex justify-center items-baseline ">
+          @sedihomes.2023
+        </footer>
       </section>
     </>
   );

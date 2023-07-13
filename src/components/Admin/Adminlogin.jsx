@@ -51,7 +51,7 @@ const Adminlogin = () => {
       <form className="w-64 ">
         <h2 className="text-xl font-extra mb-4">Administration Login</h2>
         <div className="mb-4">
-          <label className="block text-gray-700 font-bold mb-2" htmlFor="email">
+          <label className="block text-gray-700 font-bold mb-2">
             Email
           </label>
           <input

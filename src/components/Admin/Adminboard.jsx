@@ -1,9 +1,14 @@
 import { BellIcon, SearchIcon } from "@heroicons/react/outline";
-import React, { useState } from "react";
+import { signOut } from "firebase/auth";
+import { collection, deleteDoc, doc, getDocs } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { signOut, getAuth } from "firebase/auth";
 import logo from "../../assets/logo.jpeg";
-import { auth } from "../../config/firebase";
+import { auth, database } from "../../config/firebase";
+
+
+
+
 
 const Adminboard = () => {
   const Navigate = useNavigate();
@@ -16,9 +21,39 @@ const Adminboard = () => {
       })
       .catch((error) => console.log("Error while signing out:", error));
   };
+  const [allDocs, setAllDocs] = useState([]);
+  const fetchRooms = (e) => {
+    getDocs(collection(database, "booked")).then((response) => {
+      const results = response.docs.map((doc) => {
+        return { ...doc.data(), id: doc.id };
+      });
+      setAllDocs(results);
+    });
+  };
+
+  useEffect(() => {
+    fetchRooms();
+  }, []);
+
+  {
+    /*Deleting rooms*/
+  }
+  const deleteRoom = async (id) => {
+    alert(`The room with ID ,${id} has been deleted successfully.`);
+    try {
+      const cancel = doc(database, "booked", id);
+
+      await deleteDoc(cancel);
+    } catch (error) {
+      console.log(error);
+    }
+    //alert(`The room with ID ${id}, has been deleted successfully.`);
+  };
+
+  console.log(allDocs);
 
   return (
-    <div>
+    <div className="bg-[#e4e0e0]">
       {/* Header Section */}
       <header className="flex items-center justify-between p-4 bg-[#535252] text-white">
         <div className="flex items-center">
@@ -41,8 +76,8 @@ const Adminboard = () => {
       {/* Body Section */}
       <div className="flex items-center justify-between p-4 bg-gray-200">
         <div>
-          <button className="border bg-slate-500 px-8 py-2 bg-blue-500  text-white rounded">
-            <SearchIcon className="h-6 w-6 text-white" />
+          <button className="border bg-slate-500 px-4 py-2 bg-blue-500  text-white rounded">
+            <SearchIcon className="h-6 w-6 inline text-white" />
             <span className="ml-2">Search</span>
           </button>
         </div>
@@ -76,9 +111,65 @@ const Adminboard = () => {
       </div>
 
       {/* Main Section */}
-      <div className="p-4 bg-[#9d9a9a] h-screen">
+      <div className="rounded-3xl p-4 bg-[#918e8e] h-screen ">
         {/* Display information based on the button clicked */}
-        <h3 className="text-white">Reservations</h3>
+        <div className=" flex justify-between">
+          <h3 className="text-lg font-bold text-black">Admin dashboard</h3>
+          <div className="space-x-2">
+            <button className="bg-slate-400 border-solid border-spacing-0 rounded-md p-2">
+              Reserved Rooms
+            </button>
+            <button className="bg-slate-400 border-separate p-2 rounded-md ">
+              {" "}
+              Cancel Room
+            </button>
+          </div>
+        </div>
+        <div className="space-x-6">
+          New
+          {/*displaying booked rooms*/}
+          <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            {allDocs.map((booked) => (
+              <div
+                key={booked.id}
+                className="bg-transparent rounded-lg shadow p-4"
+              >
+                <h2 className="text-lg font-bold mb-2">{booked.name}</h2>
+                <div className="mb-2 ">
+                  <span className="font-semibold">Room Number:</span>{" "}
+                  {booked.roomNo}
+                </div>
+                <div className="mb-2">
+                  <span className="font-semibold">Description:</span>{" "}
+                  {booked.description}
+                </div>
+                <div className="mb-2">
+                  <span className="font-semibold">Facilities:</span>{" "}
+                  {booked.facilities}
+                </div>
+                <div className="mb-2">
+                  <span className="font-semibold">Number of Guests:</span>{" "}
+                  {booked.numberOfGuests}
+                </div>
+                <div className="mb-2">
+                  <span className="font-semibold">Amount:</span> {booked.amount}
+                </div>
+                <img
+                  src={booked.image}
+                  alt="Room"
+                  className="w-full h-40 object-cover rounded  "
+                />
+                <button
+                  className="bg-slate-400 border-separate p-2 rounded-md "
+                  onClick={() => deleteRoom(booked.id)}
+                >
+                  {" "}
+                  Cancel Room
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

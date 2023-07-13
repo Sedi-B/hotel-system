@@ -1,62 +1,71 @@
 import { BellIcon, SearchIcon } from "@heroicons/react/outline";
-import { addDoc, collection } from "firebase/firestore";
-import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { addDoc, collection, updateDoc } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { React, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.jpeg";
 import { database, storage } from "../../config/firebase";
 
-
 const AddRoom = () => {
-  const [roomNo, setroomNo] = useState(null);
+  const [roomNo, setRoomNo] = useState(null);
   const [image, setImage] = useState("");
   const [description, setDescription] = useState("");
   const [facilities, setFacilities] = useState("");
   const [numberOfGuests, setNumberOfGuests] = useState(0);
   const [amount, setAmount] = useState(0);
-  const [file,setFile] = useState();
+  const [file, setFile] = useState();
 
   {
     /*IMAGE FUNCTION */
   }
   const handleImageChange = (e) => {
     e.preventDefault();
-    const file = e.target.files[0];
-    setFile(file)
+    const file_ = e.target.files[0];
+    setFile(file_);
     const reader = new FileReader();
 
     reader.onload = () => {
       setImage(reader.result);
     };
 
-    if (file) {
-      reader.readAsDataURL(file);
+    if (file_) {
+      reader.readAsDataURL(file_);
     }
   };
-  
+
   //Saving info
   const handleAddRoom = async (event) => {
     event.preventDefault();
+ try {
+      const storageRef = ref(storage, file.name);
 
-    const storageRef = ref(storage, file.name);
-    
-    // 'file' comes from the Blob or File API
-    uploadBytes(storageRef, file).then((snapshot) => {
-      console.log('Uploaded a blob or file!');
-    });
+      // 'file' comes from the  File API
+      uploadBytes(storageRef, file).then((snapshot) => {
+        console.log("Uploaded a file!");
+      });
 
-    alert("room added");
-    try {
+      const url = await getDownloadURL(storageRef);
+      console.log(url);
+  alert("room added");
       await addDoc(collection(database, "rooms"), {
         roomNo,
         description,
         facilities,
         amount,
         numberOfGuests,
+        url,
       });
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }
+  };
+  {/*updating rooms*/}
+  const [updatedDescription, setUpdatedDescription] = useState()  //
+  const updateRoom = async () => {
+    const collected = collection(database, "rooms");
+    const update = addDoc(collected, id);
+    await updateDoc(update, { description: updatedDescription });
   };
 
   return (
@@ -125,7 +134,7 @@ const AddRoom = () => {
             <input
               type="number"
               id="room number"
-              onChange={(e) => setroomNo(e.target.value)}
+              onChange={(e) => setRoomNo(e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-md"
             />
           </div>
@@ -186,6 +195,18 @@ const AddRoom = () => {
           </button>
         </form>
 
+        <input
+          className="border  rounded-l  bg-white"
+          placeholder="New room description"
+          onChange={(e) => setUpdatedDescription(e.target.value)}
+        />
+        <button
+          className="px-4 py-2 bg-[blue] text-white rounded ml-2"
+          onClick={updateRoom}
+        >
+          {" "}
+          save changes
+        </button>
         {/*adding rooms*/}
       </div>
     </div>

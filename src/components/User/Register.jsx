@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import front from "../assets/Front.jpg";
-import logo from "../assets/logo.jpeg";
-import { auth } from "../config/firebase";
+import front from "../../assets/Front.jpg";
+import logo from "../../assets/logo.jpeg";
+import { auth } from "../../config/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const Register = () => {
@@ -30,9 +30,7 @@ const Register = () => {
                 <img className=" h-5 w-auto sm:h-10" src={logo} alt="logo" />
               </div>
               <div>@SEDIHOMES</div>{" "}
-        
             </div>
-         
           </header>
 
           <form className="left-2 w-80 h-64">
@@ -80,13 +78,11 @@ const Register = () => {
             {" "}
             <Link
               className="p-3 px-6 pt-2 text-black  bg-[#413fd4] rounded-full baseline  hover:bg-blend-color-burn  my-3 mx-3 "
-              to={"/About"}
+              to={"/"}
             >
               {" "}
-              Our Services
             </Link>
           </div>
-        
         </div>
       </section>
     </>
