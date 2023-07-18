@@ -1,7 +1,13 @@
-import { addDoc, collection, deleteDoc, doc, getDocs } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  query,
+} from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { database } from "../../config/firebase";
-
 
 const FetchData = () => {
   const [allDocs, setAllDocs] = useState([]);
@@ -23,15 +29,48 @@ const FetchData = () => {
     fetchAll();
   }, []);
 
-  // const navigate=useNavigate();
-  // const [book,setBook]= useState();
+  const [errorMessage, setErrorMessage] = useState("");
   const bookRoom = async (room) => {
     const docRef = await addDoc(collection(database, "booked"), {
       ...room,
     });
     // const roomBooked = docRef.docs.map((doc) => doc.data());
     alert("Room booked");
-    setBook(roomBooked);
+
+    {
+      /*..........Control Statement
+    const checkRoomAvailability = async (checkIn) => {
+      const bookingsRef = getDocs(collection(database, "booked"));
+
+      // Query the Firestore collection to check if there are any existing bookings for the selected room and date
+      const snapshot = await getDocs(
+        query(bookingsRef.where("checkIn", "==", checkIn).get())
+      );
+
+      return snapshot.empty; // Return true if no bookings exist, otherwise false
+    };
+    const isRoomAvailable = await checkRoomAvailability(checkIn);
+    if (isRoomAvailable) {
+      // Perform the booking
+      // Add the booking details to the Firestore database or your preferred storage solution
+      try {
+        await bookingsRef.add({
+          checkIn,
+        });
+        // ...*****************************
+        setCheckIn("");
+        setErrorMessage("");
+        alert("Booking successful!");
+      } catch (error) {
+        console.error("There wa an error", error);
+      }
+    } else {
+      // Show error message if the room is already booked
+      setErrorMessage("The selected date is unavailable at the moment");
+    }
+
+  ......... Ending Control Statement*/
+    }
   };
 
   const [name, setName] = useState("");
@@ -74,7 +113,6 @@ const FetchData = () => {
       console.error("Error submitting reservation:", error);
     }
   };
-
 
   return (
     <div className=" bg-slate-300">

@@ -126,7 +126,7 @@ const Adminboard = () => {
           </div>
         </div>
         <div className="space-x-6">
-          New
+       
           {/*displaying booked rooms*/}
           <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {allDocs.map((booked) => (
@@ -164,7 +164,7 @@ const Adminboard = () => {
                   onClick={() => deleteRoom(booked.id)}
                 >
                   {" "}
-                  Cancel Room
+               Delete Room
                 </button>
               </div>
             ))}

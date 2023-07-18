@@ -45,7 +45,7 @@ const Home = () => {
 
         <Link
           className=" shadow-2xl rounded-md bg-blue text-black px-7 py-1"
-          to={"/About"}
+          to={"/OurServices"}
         >
           {" "}
           Our services

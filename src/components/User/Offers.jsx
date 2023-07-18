@@ -112,7 +112,7 @@ const Offers = () => {
                 <button
                   onClick={handleCheckAvailability}
                   className="bg-white hover:bg-blue-700 text-blue  font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                  type="submit  "
+                  disabled={!checkInDate ||!checkOutDate}
                 >
                   Check Availability
                 </button>

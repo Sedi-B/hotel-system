@@ -16,6 +16,7 @@ import Register from "./components/User/Register";
 import Login from "./components/User/Login";
 import Booked from "./components/User/Booked";
 import LandingArea from "./components/LandingArea";
+import OurServices from "./components/User/OurServices";
 
 const App = () => {
   return (
@@ -35,6 +36,7 @@ const App = () => {
         <Route path="/Explore" element={<Explore />} />
         <Route path="/FetchData" element={<FetchData />} />
         <Route path="/Booked" element={<Booked />} />
+        <Route path="/OurServices" element={<OurServices/>}/>
       </Routes>
     </BrowserRouter>
   );
