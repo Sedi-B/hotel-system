@@ -11,6 +11,8 @@ const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+
 
   const back = () => {
     navigate("/");
@@ -18,7 +20,9 @@ const Login = () => {
   const signIn = (e) => {
     e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
-      .then(() => {
+      .then((userCredentials) => {
+        const user= userCredentials.user;
+      setName(user.displayName || " ");
         alert("You are logged in");
         navigate("/About");
       })
@@ -53,7 +57,7 @@ const Login = () => {
           <form className="left-2">
             <h2 className="flex justify-center  font-extralight">
               {" "}
-              WELCOME TO SEDIHOMES
+              WELCOME TO SEDIHOMES {name}
             </h2>
             <label> Email</label>
             <br />
