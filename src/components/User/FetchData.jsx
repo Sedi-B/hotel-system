@@ -137,7 +137,7 @@ const FetchData = () => {
               <span className="font-semibold">Amount:</span> {room.amount}
             </div>
             <img
-              src={room.image}
+              src={room.url}
               alt="Room"
               className="w-full h-40 object-cover rounded  "
             />

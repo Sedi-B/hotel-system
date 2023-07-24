@@ -4,10 +4,9 @@ import "tailwindcss/tailwind.css";
 
 import AddRoom from "./components/Admin/AddRoom";
 import Adminboard from "./components/Admin/Adminboard";
-import AdminGuest from "./components/Admin/Adminguest";
+import AdminGuest from "./components/Admin/AdminGuest";
 import Adminlogin from "./components/Admin/Adminlogin";
 import AdminRegister from "./components/Admin/Adminregister";
-import AvailableRooms from "./components/User/AvailableRooms";
 import Explore from "./components/User/Explore";
 import FetchData from "./components/User/FetchData";
 import Home from "./components/User/Home";
@@ -27,7 +26,7 @@ const App = () => {
         <Route path="/Register" element={<Register />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/About" element={<Offers />} />
-        <Route path="/Rooms" element={<AvailableRooms />} />
+        
         <Route path="/Adminboard" element={<Adminboard />} />
         <Route path="/AdminGuest" element={<AdminGuest />} />
         <Route path="/Adminlogin" element={<Adminlogin />} />

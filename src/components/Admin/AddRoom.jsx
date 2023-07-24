@@ -60,13 +60,7 @@ const AddRoom = () => {
       console.log(error);
     }
   };
-  {/*updating rooms*/}
-  const [updatedDescription, setUpdatedDescription] = useState()  //
-  const updateRoom = async () => {
-    const collected = collection(database, "rooms");
-    const update = addDoc(collected, id);
-    await updateDoc(update, { description: updatedDescription });
-  };
+
 
   return (
     <div>
@@ -125,7 +119,7 @@ const AddRoom = () => {
       {/* Main Section */}
       <div className="p-4 h-screen  bg-gray-200">
         {/* Display information based on the button clicked */}
-        <h3 className="text-Gray">My Rooms</h3>
+        <h3 className="text-Gray flex justify-center text-black font-bold my-2">Adding  Rooms</h3>
         {/*adding rooms*/}
 
         <form className="flex">
@@ -195,19 +189,6 @@ const AddRoom = () => {
           </button>
         </form>
 
-        <input
-          className="border  rounded-l  bg-white"
-          placeholder="New room description"
-          onChange={(e) => setUpdatedDescription(e.target.value)}
-        />
-        <button
-          className="px-4 py-2 bg-[blue] text-white rounded ml-2"
-          onClick={updateRoom}
-        >
-          {" "}
-          save changes
-        </button>
-        {/*adding rooms*/}
       </div>
     </div>
   );

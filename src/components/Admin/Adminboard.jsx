@@ -6,10 +6,6 @@ import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.jpeg";
 import { auth, database } from "../../config/firebase";
 
-
-
-
-
 const Adminboard = () => {
   const Navigate = useNavigate();
   const logOut = (e) => {
@@ -51,6 +47,14 @@ const Adminboard = () => {
   };
 
   console.log(allDocs);
+
+    {/*updating rooms*/}
+    const [updatedDescription, setUpdatedDescription] = useState()  //
+    const updateRoom = async (id) => {
+      const collected = collection(database, "rooms");
+      const update = addDocs (collected, id);
+      await updateDoc(update, { description: updatedDescription });
+    };
 
   return (
     <div className="bg-[#e4e0e0]">
@@ -116,17 +120,13 @@ const Adminboard = () => {
         <div className=" flex justify-between">
           <h3 className="text-lg font-bold text-black">Admin dashboard</h3>
           <div className="space-x-2">
-            <button className="bg-slate-400 border-solid border-spacing-0 rounded-md p-2">
+           
               Reserved Rooms
-            </button>
-            <button className="bg-slate-400 border-separate p-2 rounded-md ">
-              {" "}
-              Cancel Room
-            </button>
+         
+         
           </div>
         </div>
         <div className="space-x-6">
-       
           {/*displaying booked rooms*/}
           <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {allDocs.map((booked) => (
@@ -155,17 +155,25 @@ const Adminboard = () => {
                   <span className="font-semibold">Amount:</span> {booked.amount}
                 </div>
                 <img
-                  src={booked.image}
+                  src={booked.url}
                   alt="Room"
                   className="w-full h-40 object-cover rounded  "
                 />
-                <button
-                  className="bg-slate-400 border-separate p-2 rounded-md "
+                <div className="flex  justify-between">  <button
+                  className="bg-slate-400 border-separate my-1  p-2 rounded-md "
                   onClick={() => deleteRoom(booked.id)}
                 >
                   {" "}
-               Delete Room
+                  Delete Room
                 </button>
+                <button
+                  className="bg-slate-400 border-separate my-1  p-2 rounded-md "
+                  onClick={() => updateRoom(booked.id)}
+                >
+                  {" "}
+                  Update Room
+                </button>
+                </div>
               </div>
             ))}
           </div>
